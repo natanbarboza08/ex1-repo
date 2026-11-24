@@ -1,0 +1,76 @@
+### 1. Esperado: HTTP 200
+GET http://localhost:8080/
+
+### 2. Esperado: HTTP 200
+GET http://localhost:8080/status
+
+### 3. Esperado: HTTP 200
+GET http://localhost:8080/versao
+
+### 4. Esperado: HTTP 201
+POST http://localhost:8080/maquinas/cadastro
+Content-Type: application/json
+
+{
+  "nome": "Máquina CNC 01",
+  "tipo": "CNC",
+  "setor": "Usinagem",
+  "status": "em operação"
+}
+
+### 5. Esperado: HTTP 200
+GET http://localhost:8080/maquinas
+
+### 6. Esperado: HTTP 200
+PUT http://localhost:8080/maquinas/1
+Content-Type: application/json
+
+{
+  "nome": "Máquina CNC 01",
+  "tipo": "CNC",
+  "setor": "Usinagem",
+  "status": "parada"
+}
+
+### 7. Esperado: HTTP 201
+POST http://localhost:8080/producao
+Content-Type: application/json
+
+{
+  "maquinaId": 1,
+  "consumoKw": 12.5,
+  "horarioAcionamento": "08:30",
+  "pecasProduzidas": 150
+}
+
+### 8. Esperado: HTTP 200
+GET http://localhost:8080/producao
+
+### 9. Esperado: HTTP 200
+GET http://localhost:8080/producao?maquinaId=1
+
+### 10. Esperado: HTTP 200
+PUT http://localhost:8080/producao/1
+Content-Type: application/json
+
+{
+  "maquinaId": 1,
+  "consumoKw": 20.0,
+  "horarioAcionamento": "09:00",
+  "pecasProduzidas": 300
+}
+
+### 11. Esperado: HTTP 204
+DELETE http://localhost:8080/producao/1
+
+### 12. Esperado: HTTP 204
+DELETE http://localhost:8080/maquinas/1
+
+### 13. Esperado: HTTP 404 (máquina já excluída)
+DELETE http://localhost:8080/maquinas/1
+
+### 14. Esperado: HTTP 400 (corpo vazio)
+POST http://localhost:8080/maquinas/cadastro
+Content-Type: application/json
+
+{}
